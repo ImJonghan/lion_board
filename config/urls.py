@@ -22,5 +22,4 @@ urlpatterns = [
     # path('hello/', include("board.urls") ),
     # path('bye/', include("board.urls") ),
     path('', include("board.urls") ),
-
 ]

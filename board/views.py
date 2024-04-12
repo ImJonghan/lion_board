@@ -30,6 +30,22 @@ class ItemCV(CreateView):
     fields = ['title', 'content']
     # - template : 앱이름/모델명(소문자)_form.html
 
+from .forms import CommentForm
+
+def content_comment(request, pk):
+    # 해당 item pk를 가진 대상에 추가적으로 comment를 저장
+    item = Item.objects.get(pk=pk)    
+    if request.method=='POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.item = item
+            comment.save()
+    elif request.method=="GET":
+        form = CommentForm()
+    return render(request, 'board/item_detail.html', {'object':item, 'form':form})
+
+
 class ItemDeleteView(DeleteView):
     model = Item
     success_url = reverse_lazy('spring:index')     
