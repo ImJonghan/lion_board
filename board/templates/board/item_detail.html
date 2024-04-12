@@ -2,4 +2,8 @@
 <h1>상품명 : {{object.title}} </h1>
 <p>{{object.content}}</p>
 
- 
+<div>
+    <form action="{% url 'spring:delete' object.id %}">
+    <input type="submit" value="삭제">
+    </form>
+</div>

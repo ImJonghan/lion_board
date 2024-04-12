@@ -1,7 +1,7 @@
 from typing import Any
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView
 from .models import Item
 from django.urls import reverse_lazy
 # Create your views here.
@@ -26,10 +26,14 @@ class ItemDV(DetailView):
 
 class ItemCV(CreateView):
     model = Item
-    success_url = reverse_lazy('index') 
+    success_url = reverse_lazy('spring:index') 
     fields = ['title', 'content']
-    
     # - template : 앱이름/모델명(소문자)_form.html
+
+class ItemDeleteView(DeleteView):
+    model = Item
+    success_url = reverse_lazy('spring:index')     
+    # 지울건지 확인 : 앱이름/모델명(소문자)_confirm_delete.html
 
 def itemLV(request):
     # 모델에서 데이터들 가져오고
